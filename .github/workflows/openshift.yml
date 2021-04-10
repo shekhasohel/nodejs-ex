@@ -128,15 +128,16 @@ jobs:
         # Otherwise, point this to your Dockerfile relative to the repository root.
 
     # https://github.com/redhat-actions/push-to-registry#readme
-    - name: Push to registry
-      id: push-to-registry
-      uses: redhat-actions/push-to-registry@v2.1
+    
+    
+    - name: Push Docker Image
+      id: push-docker-image
+      uses: julioarruda/pushimagetoregistry@v1
       with:
-        image: ${{ steps.image-build.outputs.image }}
-        tags: ${{ steps.image-build.outputs.tags }}
-        registry: ${{ env.REGISTRY }}
-        username: ${{ env.REGISTRY_USER }}
-        password: ${{ env.REGISTRY_PASSWORD }}
+        acr-tokenname: ${{ env.REGISTRY_USER }}
+        acr-token: ${{ env.REGISTRY_PASSWORD }}
+        acr-account: ${{ env.REGISTRY }}
+        acr-imagename: ${{ steps.image-build.outputs.image }}:${{ steps.image-build.outputs.tags }}
 
     # The path the image was pushed to is now stored in ${{ steps.push-to-registry.outputs.registry-path }}
 
