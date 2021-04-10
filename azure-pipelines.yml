@@ -29,4 +29,4 @@ steps:
   inputs:
     connectionType: 'OpenShift Connection Service'
     openshiftService: 'openshift'
-    cmd: 'process -f /openshift/templates/nodejs.json -n default'
+    cmd: 'process -f openshift/templates/nodejs.json -n default'
