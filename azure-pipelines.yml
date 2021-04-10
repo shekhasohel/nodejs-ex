@@ -18,6 +18,7 @@ steps:
 
 - script: |
     npm install
+    ls
   displayName: 'npm install'
 
 - task: oc-setup@2
