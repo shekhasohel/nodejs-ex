@@ -20,7 +20,8 @@ steps:
     npm install
   displayName: 'npm install'
 
-- task: CopyFiles@2
+- task: PublishBuildArtifacts@1
   inputs:
-    Contents: '**'
-    TargetFolder: '$(build.artifactstagingdirectory)'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
