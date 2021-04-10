@@ -10,6 +10,7 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+
 - task: NodeTool@0
   inputs:
     versionSpec: '10.x'
@@ -18,3 +19,14 @@ steps:
 - script: |
     npm install
   displayName: 'npm install'
+
+- task: oc-setup@2
+  inputs:
+    connectionType: 'OpenShift Connection Service'
+    openshiftService: 'openshift'
+
+- task: oc-cmd@2
+  inputs:
+    connectionType: 'OpenShift Connection Service'
+    openshiftService: 'openshift'
+    cmd: 'process -f ./openshift/templates/nodejs.json -n default'
