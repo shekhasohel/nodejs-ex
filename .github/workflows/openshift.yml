@@ -130,12 +130,14 @@ jobs:
     - name: Check image name
       run: |
         podman images
+        echo ${{ steps.image-build.outputs.image }}
+        echo ${{ steps.image-build.outputs.tags }}
 
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@0.0.8
       with:
         #image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
-        image-ref: ${{ steps.image-build.outputs.image }}:${{ steps.image-build.outputs.tags }}
+        image-ref: localhost/${{ steps.image-build.outputs.image }}:${{ steps.image-build.outputs.tags }}
         format: 'table'
         exit-code: '1'
         ignore-unfixed: true
