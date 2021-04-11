@@ -128,9 +128,8 @@ jobs:
         # Otherwise, point this to your Dockerfile relative to the repository root.
 
     - name: Check image name
-      uses: actions/github-script@v3
-      with:
-        script: podman images
+      run: |
+        podman images
 
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@0.0.8
