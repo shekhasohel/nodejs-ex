@@ -146,6 +146,7 @@ jobs:
         image-ref: ${{ steps.push-to-registry.outputs.registry-path }}
         format: 'table'
         exit-code: '1'
+        ignore-unfixed: true
         #severity: 'CRITICAL,HIGH'
     
     #- name: Push Docker Image
