@@ -127,6 +127,11 @@ jobs:
         # https://github.com/redhat-actions/buildah-build#scratch-build-inputs
         # Otherwise, point this to your Dockerfile relative to the repository root.
 
+    - name: Check image name
+      uses: actions/github-script@v3
+      with:
+        script: podman images
+
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@0.0.8
       with:
