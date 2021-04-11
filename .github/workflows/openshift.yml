@@ -35,7 +35,8 @@ name: OpenShift
 # https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets
 env:
   # ⬇️ EDIT with your registry and registry path.
-  REGISTRY: quay.io/mshekha
+  #REGISTRY: quay.io/mshekha
+  REGISTRY: docker.io/mshekha
   # ⬇️ EDIT with your registry username.
   REGISTRY_USER: mshekha
   REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
@@ -133,27 +134,27 @@ jobs:
         echo ${{ steps.image-build.outputs.image }}
         echo ${{ steps.image-build.outputs.tags }}
 
-    - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@0.0.8
-      with:
+    #- name: Run Trivy vulnerability scanner
+    #  uses: aquasecurity/trivy-action@0.0.8
+    #  with:
         #image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
-        image-ref: localhost/${{ steps.image-build.outputs.image }}:${{ steps.image-build.outputs.tags }}
-        format: 'table'
-        exit-code: '1'
-        ignore-unfixed: true
+    #    image-ref: localhost/${{ steps.image-build.outputs.image }}:${{ steps.image-build.outputs.tags }}
+    #    format: 'table'
+    #    exit-code: '1'
+    #    ignore-unfixed: true
         #severity: 'CRITICAL,HIGH'
     
     
     # https://github.com/redhat-actions/push-to-registry#readme
-    #- name: Push to registry
-    #  id: push-to-registry
-    #  uses: redhat-actions/push-to-registry@v2.1
-    #  with:
-    #    image: ${{ steps.image-build.outputs.image }}
-    #    tags: ${{ steps.image-build.outputs.tags }}
-    #    registry: ${{ env.REGISTRY }}
-    #    username: ${{ env.REGISTRY_USER }}
-    #    password: ${{ env.REGISTRY_PASSWORD }}
+    - name: Push to registry
+      id: push-to-registry
+      uses: redhat-actions/push-to-registry@v2.1
+      with:
+        image: ${{ steps.image-build.outputs.image }}
+        tags: ${{ steps.image-build.outputs.tags }}
+        registry: ${{ env.REGISTRY }}
+        username: ${{ env.REGISTRY_USER }}
+        password: ${{ env.REGISTRY_PASSWORD }}
     
     #- name: Push Docker Image
      # id: push-docker-image
